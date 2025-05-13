@@ -14,7 +14,7 @@ echo 'console.log("Hello!");' >main.js
 git add main.js
 git commit -m "Initial commit with expected business logic"
 
-echo "Creating more commits... No peeking! :)"
+echo "Creating more commits. Suppressing git output to obscure commit details. No peeking! :)"
 # Create random number of before-bug commits
 TOTAL_COMMIT_COUNT=$(((RANDOM % 10) + 10))
 COMMIT_COUNT_BEFORE_BUG=$((TOTAL_COMMIT_COUNT - (RANDOM % TOTAL_COMMIT_COUNT)))
