@@ -19,7 +19,7 @@ Start bisecting:
 
 ```bash
 git bisect start
-git bisect bad        # Mark HEAD as bad (contains the bug)
+git bisect bad # Mark HEAD as bad (contains the bug)
 ```
 
 Then, mark the initial commit as good (replace `<commit-hash>` with the hash of the first commit, found via `git log --oneline`):
