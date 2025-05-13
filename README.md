@@ -11,52 +11,41 @@ From the root of this repository, run:
 cd hello-bug-project
 ```
 
-This creates a new directory with a git repository and a series of commits. One commit introduces a bug into the code.
+This creates a new directory with a git repository and a series of commits. One commit introduces a bug.
 
 # Finding the Bug with Git Bisect
 
-Start the bisect process:
+Start bisecting:
 
 ```bash
 git bisect start
-git bisect bad        # Mark HEAD as bad (it contains the bug)
+git bisect bad        # Mark HEAD as bad (contains the bug)
 ```
 
-Find the initial commit hash with:
+Then, mark the initial commit as good (replace `<commit-hash>` with the hash of the first commit, found via `git log --oneline`):
 
 ```bash
-git log --oneline
+git bisect good <commit-hash>
 ```
 
-Then, mark the initial commit as good:
-
-```bash
-git bisect good <commit-hash>  # Replace <commit-hash> with the initial commit hash (known good)
-```
-
-Git will now automatically update your HEAD to the midpoint between the good and bad commit you indicated. Now, test the program to see if the bug is present:
+Git will now check out a commit halfway between good and bad. At each step, test the program:
 
 ```bash
 node main.js
 ```
 
-If the output is "Hello!", mark the commit as good:
+- If the output is "Hello!", run: `git bisect good`
+- If the output is "Bug!", run: `git bisect bad`
 
-```bash
-git bisect good
+Repeat until git prints:
+
 ```
-
-If the output is "Bug!", mark it as bad:
-
-```bash
-git bisect bad
+<commit-hash> is the first bad commit
 ```
-
-Continue these steps until git identifies logs the following message: <commit-hash> is the first bad commit
 
 # Documenting the Bug
 
-When you have found the commit, tag it and review the changes:
+When you find the buggy commit, tag it and review the changes:
 
 ```bash
 git tag bug-commit
